@@ -172,6 +172,7 @@ h2{
 .person p{font-size:15.5px;flex:1}
 .person p a{color:var(--blue);text-decoration:none;font-weight:500}
 .person p a:hover{text-decoration:underline}
+.partner-badge{width:120px;height:auto;margin:12px 0 4px;display:block}
 .person .links{display:flex;gap:14px;margin-top:16px}
 .person a.li{display:inline-flex;color:var(--ink);transition:color .15s ease}
 .person a.li:hover{color:var(--blue)}
@@ -223,8 +224,9 @@ form .btn:hover{background:var(--mid)}
 
 /* footer */
 footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.12);padding:28px 0}
-footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap}
 footer p{font-size:13.5px;color:var(--slate)}
+.disc{font-size:12px;color:var(--slate);opacity:.75;width:100%;order:-1;flex-basis:100%}
 .foot-link{color:var(--pale);text-decoration:none}
 .foot-link:hover{text-decoration:underline}
 .foot-bars{display:flex;gap:6px}
@@ -276,7 +278,7 @@ footer p{font-size:13.5px;color:var(--slate)}
       <div>
         <p class="kicker">Consulting · Training · Continuity</p>
         <h1>4D expertise,<br><span class="lt">built to last.</span></h1>
-        <p>Everything 4D is a consulting partnership for businesses that run on the 4D platform. We design, build, and maintain the systems your company depends on — and we built our firm so that it will be here as long as you need it.</p>
+        <p>Everything 4D is a consulting partnership for businesses that run on the <a href="https://us.4d.com/" target="_blank" rel="noopener">4D platform</a>. We design, build, and maintain the systems your company depends on — and we built our firm so that it will be here as long as you need it.</p>
         <a class="btn" href="#contact">Start a conversation</a><a class="btn ghost" href="#services">What we do</a>
       </div>
       <div class="bars" role="img" aria-label="Three ascending bars, the Everything 4D mark">
@@ -314,7 +316,7 @@ footer p{font-size:13.5px;color:var(--slate)}
       <h2>Built for the long run.</h2>
       <p class="reveal">Much of the world's 4D development has historically been done by lone-wolf developers — a single trusted expert who knows the system inside and out. It works beautifully, right up until it doesn't. When that developer retires, or can't continue, the business is left with a critical system and no one who understands it. Some of our clients came to us in exactly that position.</p>
       <p class="pull reveal">We formed Everything 4D specifically to solve that problem — a partnership deliberately spanning generations, so the firm outlives any one developer.</p>
-      <p class="reveal">Our three founders bring complementary careers to the table: decades of 4D development reaching back to the late 1980s, a software business built and run in England, and experience inside one of the largest 4D installations in the world — a multibillion-dollar company that runs its entire operation on the platform. The same platform scales down gracefully: we use 4D to build quickly for small operations, without having to switch tools when a project grows.</p>
+      <p class="reveal">Our three founders bring complementary careers to the table: decades of <a href="https://us.4d.com/" target="_blank" rel="noopener">4D</a> development reaching back to the late 1980s, a software business built and run in England, and experience inside one of the largest 4D installations in the world — a multibillion-dollar company that runs its entire operation on the platform. The same platform scales down gracefully: we use 4D to build quickly for small operations, without having to switch tools when a project grows.</p>
       <p class="reveal">We are a new company by incorporation date. We are not new at this.</p>
     </div>
   </section>
@@ -327,6 +329,7 @@ footer p{font-size:13.5px;color:var(--slate)}
       <div class="people">
         <article class="person f1 reveal">
           <div class="photo" style="background-image:url('assets/kirk.jpg')" role="img" aria-label="Kirk Brooks"></div>
+          <img src="assets/partner-badge.png" alt="4D Silver Partner 2026" class="partner-badge">
           <h3>Kirk Brooks</h3>
           <p class="role">Co-founder</p>
           <p>Developing software — primarily with 4D — since the late 1980s, Kirk is a well-known fixture in the 4D developer community and has hosted the weekly 4D Happy Hour for over five years. His consulting work spans from small businesses to the largest 4D installation in the world.</p>
@@ -334,6 +337,7 @@ footer p{font-size:13.5px;color:var(--slate)}
         </article>
         <article class="person f2 reveal">
           <div class="photo" style="background-image:url('assets/doug.jpg')" role="img" aria-label="J. Douglas Cryer"></div>
+          <img src="assets/partner-badge.png" alt="4D Silver Partner 2026" class="partner-badge">
           <h3>J. Douglas Cryer</h3>
           <p class="role">Co-founder</p>
           <p>Doug has been building software nearly as long as 4D has existed. He is the founder of <a href="https://www.telekinetix.com/" target="_blank" rel="noopener">Telekinetix</a>, a UK 4D consultancy and 4D Partner whose client relationships span more than 25 years — delivering and supporting production systems for businesses that depend on them daily.</p>
@@ -341,6 +345,7 @@ footer p{font-size:13.5px;color:var(--slate)}
         </article>
         <article class="person f3 reveal">
           <div class="photo" style="background-image:url('assets/angel.jpg')" role="img" aria-label="Angel I. Vazquez"></div>
+          <img src="assets/partner-badge.png" alt="4D Silver Partner 2026" class="partner-badge">
           <h3>Angel I. Vazquez</h3>
           <p class="role">Co-founder</p>
           <p>Angel holds a Master's in Computer Science from California State University San Marcos and honed his craft as a staff developer inside one of the world's largest 4D installations before moving to independent consulting. He represents the next generation of the partnership — by design.</p>
@@ -423,6 +428,7 @@ footer p{font-size:13.5px;color:var(--slate)}
 
 <footer>
   <div class="wrap">
+    <p class="disc">Everything 4D LLC is an independent consulting firm. We are not affiliated with, endorsed by, or representing 4D SAS.</p>
     <p>© <span id="yr">2026</span> Everything 4D LLC · San Francisco, California · <a href="https://www.linkedin.com/company/everything4d/" target="_blank" rel="noopener" class="foot-link">LinkedIn</a> · <a href="https://github.com/Everything4D" target="_blank" rel="noopener" class="foot-link">GitHub</a></p>
     <div class="foot-bars" aria-hidden="true"><span></span><span></span><span></span></div>
   </div>
