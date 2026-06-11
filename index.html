@@ -397,11 +397,10 @@ footer p{font-size:13.5px;color:var(--slate)}
         <p class="addr">
           <strong>Everything 4D LLC</strong><br>
           4083 24th St, Box 460172<br>
-          San Francisco, CA 94146<br><br>
-          <a href="mailto:admin@everything4d.com" style="color:var(--pale)">admin@everything4d.com</a>
+          San Francisco, CA 94146
         </p>
       </div>
-      <form action="https://formspree.io/f/mzdqargo" method="POST">
+      <form id="contact-form">
         <div class="field">
           <label for="name">Name</label>
           <input id="name" name="name" type="text" autocomplete="name" required>
@@ -424,7 +423,7 @@ footer p{font-size:13.5px;color:var(--slate)}
 
 <footer>
   <div class="wrap">
-    <p>© 2026 Everything 4D LLC · San Francisco, California · <a href="https://www.linkedin.com/company/everything4d/" target="_blank" rel="noopener" class="foot-link">LinkedIn</a> · <a href="https://github.com/Everything4D" target="_blank" rel="noopener" class="foot-link">GitHub</a></p>
+    <p>© <span id="yr">2026</span> Everything 4D LLC · San Francisco, California · <a href="https://www.linkedin.com/company/everything4d/" target="_blank" rel="noopener" class="foot-link">LinkedIn</a> · <a href="https://github.com/Everything4D" target="_blank" rel="noopener" class="foot-link">GitHub</a></p>
     <div class="foot-bars" aria-hidden="true"><span></span><span></span><span></span></div>
   </div>
 </footer>
@@ -438,6 +437,37 @@ if ('IntersectionObserver' in window) {
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 }
+// Contact form — post via fetch, open confirmation in new tab, reset form
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = contactForm.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('https://formspree.io/f/mzdqargo', {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        window.open('https://formspree.io/thanks', '_blank', 'noopener');
+        contactForm.reset();
+        btn.textContent = 'Sent ✓';
+        setTimeout(() => { btn.textContent = 'Send message'; btn.disabled = false; }, 3000);
+      } else {
+        throw new Error('server error');
+      }
+    } catch {
+      btn.textContent = 'Error — please try again';
+      btn.disabled = false;
+    }
+  });
+}
+
+// Copyright year — computed, never stale
+document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 
 </body>

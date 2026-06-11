@@ -34,7 +34,7 @@ Alternative with zero third parties: replace the form with a `mailto:` link, or 
 
 ## To-do before/after launch
 
-- [ ] Formspree form ID (above)
+- [x] Formspree form ID (above)
 - [x] Founder headshots — placeholder images are at `assets/kirk.jpg`,
       `assets/doug.jpg`, `assets/angel.jpg`. The real photos already exist in
       the current site's WordPress media library:
