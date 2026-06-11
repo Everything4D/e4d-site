@@ -1,0 +1,15 @@
+<svg viewBox="30 14 512 76" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Everything 4D">
+    <g id="Blocks">
+        <path fill="#baccfb" d="M 411.5 28 L 442.5 28 C 443.32843 28 444 28.67157 444 29.5 L 444 68.5 C 444 69.32843 443.32843 70 442.5 70 L 411.5 70 C 410.67157 70 410 69.32843 410 68.5 L 410 29.5 C 410 28.67157 410.67157 28 411.5 28 Z"/>
+        <path fill="#7196ee" d="M 456.5 28 L 487.5 28 C 488.32843 28 489 28.67157 489 29.5 L 489 68.5 C 489 69.32843 488.32843 70 487.5 70 L 456.5 70 C 455.67157 70 455 69.32843 455 68.5 L 455 29.5 C 455 28.67157 455.67157 28 456.5 28 Z"/>
+        <path fill="#2f5ee7" d="M 501.5 28 L 532.5 28 C 533.32843 28 534 28.67157 534 29.5 L 534 68.5 C 534 69.32843 533.32843 70 532.5 70 L 501.5 70 C 500.67157 70 500 69.32843 500 68.5 L 500 29.5 C 500 28.67157 500.67157 28 501.5 28 Z"/>
+    </g>
+    <g id="FourD">
+        <text x="349" y="67" font-family="Helvetica, Arial, sans-serif" font-size="53" font-weight="700" fill="#233c8f" letter-spacing="-1.27931">D</text>
+        <text x="322" y="68" font-family="Helvetica, Arial, sans-serif" font-size="56" fill="#233c8f" letter-spacing="-1.351724">4</text>
+    </g>
+    <g id="Everything">
+        <text x="76" y="69" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="300" fill="#3d4554" letter-spacing="-1.2">verything</text>
+        <text x="39" y="69" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#3d4554" letter-spacing="-1.2">E</text>
+    </g>
+</svg>

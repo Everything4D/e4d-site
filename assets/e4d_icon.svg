@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+  <!-- Background -->
+  <rect x="16" y="16" width="480" height="480" rx="90" fill="#2C3E70"/>
+
+  <!-- Bars -->
+  <rect x="88" y="140" width="96" height="136" fill="#B2C9FA"/>
+  <rect x="196" y="106" width="96" height="170" fill="#6189ED"/>
+  <rect x="304" y="72" width="96" height="204" fill="#2458D6"/>
+
+  <!-- Text -->
+  <text x="256" y="424"
+        font-family="Montserrat, Arial, sans-serif"
+    font-size="172"
+        font-weight="700"
+        text-anchor="middle"
+        fill="#E6E8EF">E4D</text>
+
+</svg>
