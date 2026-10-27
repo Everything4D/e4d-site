@@ -1,50 +1,43 @@
-# Everything 4D — Identity Site
+# Everything 4D — Company Site
 
-Single-page static site. No build step, no dependencies, no backend.
+Static multi-page site. No build step, no dependencies, no backend.
 
-## Files
+## Pages
 
-- `index.html` — the entire site (HTML + CSS + JS, logo inlined)
-- `assets/` — favicons and brand images
-  - `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` (transparent E4D icon at standard sizes)
-  - `e4d_icon.png` — full-res transparent icon
-  - original banners and icon retained for reference
+| File | Purpose |
+|---|---|
+| `index.html` | Home — hero, three service pillars, Why E4D, founder teaser, one testimonial, CTA |
+| `services.html` | What we do — consulting/development, inheriting a 4D system, training, stewardship, engagement process |
+| `about.html` | Who is E4D? — short answer, origin story, principles, timeline, full founder bios |
+| `clients.html` | Industries, testimonials, anonymized case notes |
+| `contact.html` | Contact form (Formspree), address, what to expect |
 
-## Deploy to Cloudflare Pages (recommended)
+## Shared pieces
 
-1. Push this folder to a GitHub repo (e.g. `e4d-site`).
-2. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git.
-3. Select the repo. Build settings: framework **None**, build command **(empty)**, output directory **/**.
-4. Deploy. You get `e4d-site.pages.dev` immediately.
-5. Custom domain: Pages project → Custom domains → add `everything4d.com` and `www.everything4d.com`. If the domain's DNS is on Cloudflare this is one click; otherwise add the CNAME records it shows you.
+- `assets/site.css` — the one stylesheet for every page. Page-specific sections are grouped under commented headings.
+- Header (nav + inline SVG logo) and footer are **duplicated in each HTML file**. When you change one, change all five. The nav marks the current page with `aria-current="page"`.
+- Scroll-reveal and copyright-year JS is inlined at the bottom of each page; the Formspree handler is only on `contact.html`.
 
-Updates: commit + push to the repo and Pages redeploys automatically.
-Any of the three members can edit.
+## Assets
 
-## Contact form — one required step
+- `assets/kirk.jpg`, `doug.jpg`, `angel.jpg` — founder headshots (square). Swap the file, no HTML edits.
+- `assets/partner-badge.png` — 4D Silver Partner badge.
+- Favicons: `e4d_icon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`.
+- Original banners and icon retained for reference.
 
-The form posts to Formspree. Before launch:
+## Deploy — Cloudflare Pages
 
-1. Create a free account at formspree.io (free tier: 50 submissions/month).
-2. Create a form pointed at the address you want submissions delivered to (e.g. admin@everything4d.com).
-3. Copy the form ID and replace `YOUR_FORM_ID` in `index.html`:
-   `action="https://formspree.io/f/YOUR_FORM_ID"`
+1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → this repo.
+2. Build settings: framework **None**, build command **(empty)**, output directory **/**.
+3. Custom domain: Pages project → Custom domains → add `everything4d.com` and `www.everything4d.com`.
 
-Alternative with zero third parties: replace the form with a `mailto:` link, or use a small Cloudflare Worker + MailChannels (more setup, also free).
+Commit + push to `main` redeploys automatically. Pull requests get a preview URL.
 
-## To-do before/after launch
+## Contact form
 
-- [x] Formspree form ID (above)
-- [x] Founder headshots — placeholder images are at `assets/kirk.jpg`,
-      `assets/doug.jpg`, `assets/angel.jpg`. The real photos already exist in
-      the current site's WordPress media library:
-      - kirk: /wp-content/uploads/2025/06/kirk-brooks.jpeg
-      - angel: /wp-content/uploads/2025/06/angel.jpeg
-      - doug: /wp-content/uploads/2025/06/IMG_3343-square.jpg
-      Download each, rename to kirk.jpg / angel.jpg / doug.jpg, overwrite the
-      placeholders, commit, push. No HTML edits. Ideal: square, 800×800,
-      under ~150 KB (the 300px WordPress thumbnails are too small — get the
-      originals from the media library).
-- [ ] Confirm the YouTube channel URL (`https://www.youtube.com/@everything4d` is assumed — verify the handle).
-- [x] Confirm `admin@everything4d.com` is live.
-- [ ] Review founder bios — drafted from the Clay email; edit freely.
+Posts to Formspree form `mzdqargo` (configured in `contact.html`). The delivery address is set in the Formspree dashboard, not in the HTML. Fields: name, email, company (optional), message.
+
+## Editorial notes
+
+- 4D Happy Hour ended in October 2026. It is referenced only in the past tense, on the About page.
+- Client names on the site are limited to the two published testimonials (Waltons Direct, i.LEVEL). Case notes are anonymized; the large 4D installation is deliberately unnamed.
