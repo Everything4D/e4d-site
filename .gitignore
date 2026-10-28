@@ -1,6 +1,6 @@
 .DS_Store
 
 # Download files live only on the server (uploaded via FTP); only the page itself is tracked
-downloads/*
-!downloads/index.php
-!downloads/.htaccess
+public_html/downloads/*
+!public_html/downloads/index.php
+!public_html/downloads/.htaccess
