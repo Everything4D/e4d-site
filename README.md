@@ -1,6 +1,6 @@
 # Everything 4D — Company Site
 
-Static multi-page site. No build step, no dependencies, no backend.
+Static multi-page site. No dependencies, no backend. One optional build step (the downloads list, below).
 
 ## Pages
 
@@ -11,12 +11,18 @@ Static multi-page site. No build step, no dependencies, no backend.
 | `about.html` | Who is E4D? — short answer, origin story, principles, timeline, full founder bios |
 | `clients.html` | Industries, testimonials, anonymized case notes |
 | `contact.html` | Contact form (Formspree), address, what to expect |
+| `privacy.html`, `terms.html` | Privacy Statement and Terms of Service. Linked from the common footer on every page. Required by Microsoft (Entra app registration for the mail-sending integration) and Intuit; their consent screens link to these URLs. |
+| `oAuthConfirmation.html` | Landing page shown after an OAuth consent flow completes. Keep the filename exactly as registered with the provider (URLs are case-sensitive). Unlisted, `noindex`. |
+| `downloads/` | Unlisted file-distribution page (see below) |
 
 ## Shared pieces
 
-- `assets/site.css` — the one stylesheet for every page. Page-specific sections are grouped under commented headings.
-- Header (nav + inline SVG logo) and footer are **duplicated in each HTML file**. When you change one, change all five. The nav marks the current page with `aria-current="page"`.
-- Scroll-reveal and copyright-year JS is inlined at the bottom of each page; the Formspree handler is only on `contact.html`.
+- `assets/site.css` — stylesheet for the main pages (home, services, about, clients, contact). Page-specific sections are grouped under commented headings.
+- `assets/page.css` — stylesheet for the secondary pages (privacy, terms, OAuth confirmation, downloads).
+- Header (nav + inline SVG logo) and footer are **duplicated in each HTML file**. When you change one, change all of them. The nav marks the current page with `aria-current="page"`.
+- Scroll-reveal and copyright-year JS is inlined at the bottom of each main page; the Formspree handler is only on `contact.html`.
+- `_headers` — Cloudflare Pages headers (`noindex` on downloads and the OAuth page).
+- `scripts/build-downloads.mjs`, `.githooks/pre-commit` — downloads list generator.
 
 ## Assets
 
@@ -28,10 +34,28 @@ Static multi-page site. No build step, no dependencies, no backend.
 ## Deploy — Cloudflare Pages
 
 1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → this repo.
-2. Build settings: framework **None**, build command **(empty)**, output directory **/**.
+2. Build settings: framework **None**, build command `node scripts/build-downloads.mjs`, output directory **/**.
 3. Custom domain: Pages project → Custom domains → add `everything4d.com` and `www.everything4d.com`.
 
 Commit + push to `main` redeploys automatically. Pull requests get a preview URL.
+
+## Downloads page
+
+`https://everything4d.com/downloads/` lists every file in the `downloads/` folder with a
+download link. It is not linked from anywhere on the site and is marked `noindex`; give the
+URL to people when they need it.
+
+To publish a file: drop it in `downloads/`, commit, push. Nothing else to edit. The list
+comes from `downloads/files.json`, which `scripts/build-downloads.mjs` regenerates from the
+folder contents (name, size, modified date; `index.html`, `files.json` and dotfiles are
+skipped). It runs automatically:
+
+- on every Cloudflare Pages deploy, as the build command (above), and
+- on every commit, via the pre-commit hook — enable it once per clone with
+  `git config core.hooksPath .githooks` (needs Node ≥ 18).
+
+Either one is enough; both together mean the committed `files.json` is never stale.
+You can also run it by hand: `node scripts/build-downloads.mjs`.
 
 ## Contact form
 

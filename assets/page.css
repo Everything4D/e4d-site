@@ -1,0 +1,124 @@
+/* Everything 4D — shared styles for secondary pages
+   (privacy, terms, oAuthConfirmation, downloads).
+   Tokens, header and footer mirror index.html so the pages read as one site. */
+
+:root{
+  --pale:   #B3CAFC;
+  --mid:    #608BF1;
+  --blue:   #1D58DA;
+  --ink:    #283E70;
+  --slate:  #A0A7C1;
+  --ground: #F5F5F7;
+  --paper:  #FFFFFF;
+  --text:   #2B3450;
+  --rule:   rgba(160,167,193,.35);
+  --max:    1080px;
+  --sans:   "Archivo", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --serif:  "Newsreader", Georgia, serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--ground);
+  color:var(--text);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+main{flex:1}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--mid);outline-offset:2px;border-radius:2px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(245,245,247,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:80px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo-svg{height:46px;width:auto;display:block}
+.nav nav{display:flex;gap:28px}
+.nav nav a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:.04em}
+.nav nav a:hover{color:var(--blue)}
+@media (max-width:720px){
+  .nav{height:64px}
+  .logo-svg{height:36px}
+}
+
+/* ---------- page body ---------- */
+.page{padding:64px 0 96px}
+.page .wrap{max-width:780px}
+.page h1{
+  font-size:clamp(1.9rem,4vw,2.5rem);line-height:1.15;letter-spacing:-.01em;
+  color:var(--ink);margin-bottom:8px;
+}
+.updated{
+  color:var(--slate);font-size:.9rem;margin-bottom:40px;padding-bottom:24px;
+  border-bottom:1px solid var(--rule);
+}
+.page h2{font-size:1.15rem;color:var(--ink);margin:40px 0 12px;letter-spacing:-.005em}
+.page p,.page li{margin-bottom:14px}
+.page ul{padding-left:22px}
+.page table{width:100%;border-collapse:collapse;margin:18px 0 24px;font-size:.95rem;background:var(--paper)}
+.page th,.page td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+.page th{background:#EEF1F8;font-weight:600;color:var(--ink)}
+.note{
+  background:var(--paper);border-left:3px solid var(--blue);
+  padding:16px 20px;margin:28px 0;font-size:.95rem;
+}
+.page .also{margin-top:56px;padding-top:24px;border-top:1px solid var(--rule);color:var(--slate);font-size:.9rem}
+
+/* bars motif */
+.bars-inline{display:flex;gap:6px;margin:0 0 28px}
+.bars-inline span{width:14px;border-radius:3px;display:block}
+.bars-inline span:nth-child(1){height:14px;background:var(--pale)}
+.bars-inline span:nth-child(2){height:22px;background:var(--mid)}
+.bars-inline span:nth-child(3){height:30px;background:var(--blue)}
+.bars-inline{align-items:flex-end}
+
+/* ---------- centered status page (OAuth confirmation) ---------- */
+.status{padding:96px 0}
+.status .wrap{max-width:560px;text-align:center}
+.status .bars-inline{justify-content:center}
+.status h1{margin-bottom:16px}
+.status p{font-family:var(--serif);font-size:1.2rem;line-height:1.6;color:var(--text)}
+.status .fine{font-family:var(--sans);font-size:.9rem;color:var(--slate);margin-top:32px}
+
+/* ---------- downloads list ---------- */
+.files{list-style:none;padding:0;margin:0;border-top:1px solid var(--rule)}
+.files li{border-bottom:1px solid var(--rule)}
+.files a{
+  display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 24px;align-items:baseline;
+  padding:16px 4px;text-decoration:none;color:var(--text);
+}
+.files a:hover{background:var(--paper)}
+.files .name{font-weight:500;color:var(--blue);overflow-wrap:anywhere}
+.files a:hover .name{text-decoration:underline}
+.files .meta{font-size:.85rem;color:var(--slate);white-space:nowrap;font-variant-numeric:tabular-nums}
+.files .get{font-size:.85rem;color:var(--ink);white-space:nowrap}
+.files .get::before{content:"↓ "}
+.empty{color:var(--slate);font-family:var(--serif);font-size:1.1rem;padding:32px 0}
+@media (max-width:560px){
+  .files a{grid-template-columns:minmax(0,1fr) auto}
+  .files .get{display:none}
+}
+
+/* ---------- footer (identical to index.html) ---------- */
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.12);padding:28px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap}
+footer p{font-size:13.5px;color:var(--slate)}
+.disc{font-size:12px;color:var(--slate);opacity:.75;width:100%;order:-1;flex-basis:100%}
+.foot-link{color:var(--pale);text-decoration:none}
+.foot-link:hover{text-decoration:underline}
+.foot-bars{display:flex;gap:6px}
+.foot-bars span{width:14px;height:14px;border-radius:3px;display:block}
+.foot-bars span:nth-child(1){background:var(--pale)}
+.foot-bars span:nth-child(2){background:var(--mid)}
+.foot-bars span:nth-child(3){background:var(--blue)}
