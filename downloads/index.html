@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Downloads — Everything 4D</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/assets/e4d_icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/page.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="/" class="logo" aria-label="Everything 4D home"><img class="logo-svg" src="/assets/e4d_banner.svg" alt="Everything 4D" width="512" height="76"></a>
+    <nav aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="wrap">
+    <div class="bars-inline" aria-hidden="true"><span></span><span></span><span></span></div>
+    <h1>Downloads</h1>
+    <p class="updated" id="updated">Files provided by Everything 4D.</p>
+
+    <ul class="files" id="files" aria-live="polite"></ul>
+    <p class="empty" id="empty" hidden>There are no files available at the moment.</p>
+    <noscript><p class="empty">This page needs JavaScript to list the available files.</p></noscript>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="disc">Everything 4D LLC is an independent consulting firm. We are not affiliated with, endorsed by, or representing 4D SAS.</p>
+    <p>© <span id="yr">2026</span> Everything 4D LLC · San Francisco, California · <a href="https://www.linkedin.com/company/everything4d/" target="_blank" rel="noopener" class="foot-link">LinkedIn</a> · <a href="https://github.com/Everything4D" target="_blank" rel="noopener" class="foot-link">GitHub</a> · <a href="/privacy.html" class="foot-link">Privacy</a> · <a href="/terms.html" class="foot-link">Terms</a></p>
+    <div class="foot-bars" aria-hidden="true"><span></span><span></span><span></span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// The file list is read from files.json, which scripts/build-downloads.mjs
+// regenerates from the contents of this folder. Nothing here needs editing
+// when files are added or removed.
+(async () => {
+  const list  = document.getElementById('files');
+  const empty = document.getElementById('empty');
+  const upd   = document.getElementById('updated');
+
+  const fmtSize = (b) => {
+    if (b < 1024) return b + ' B';
+    const u = ['KB','MB','GB']; let i = -1;
+    do { b /= 1024; i++; } while (b >= 1024 && i < u.length - 1);
+    return (b >= 10 ? Math.round(b) : b.toFixed(1)) + ' ' + u[i];
+  };
+  const fmtDate = (iso) => new Date(iso).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+
+  let data;
+  try {
+    const r = await fetch('files.json', { cache: 'no-cache' });
+    if (!r.ok) throw new Error(r.status);
+    data = await r.json();
+  } catch (e) {
+    empty.textContent = 'The file list could not be loaded. Please try again later.';
+    empty.hidden = false;
+    return;
+  }
+
+  const files = (data.files || []).slice().sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }));
+  if (data.generated) upd.textContent = 'Files provided by Everything 4D · list updated ' + fmtDate(data.generated) + '.';
+  if (!files.length) { empty.hidden = false; return; }
+
+  for (const f of files) {
+    const li = document.createElement('li');
+    const a  = document.createElement('a');
+    a.href = encodeURIComponent(f.name);
+    a.setAttribute('download', f.name);
+    const name = Object.assign(document.createElement('span'), { className: 'name', textContent: f.name });
+    const meta = Object.assign(document.createElement('span'), { className: 'meta', textContent: fmtSize(f.size) + ' · ' + fmtDate(f.modified) });
+    const get  = Object.assign(document.createElement('span'), { className: 'get',  textContent: 'Download' });
+    a.append(name, meta, get);
+    li.append(a);
+    list.append(li);
+  }
+})();
+</script>
+</body>
+</html>
