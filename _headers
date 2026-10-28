@@ -1,7 +1,0 @@
-# Cloudflare Pages headers (ignored by other hosts).
-# Keep the downloads area and the OAuth landing page out of search engines.
-/downloads/*
-  X-Robots-Tag: noindex, nofollow
-
-/oAuthConfirmation.html
-  X-Robots-Tag: noindex, nofollow

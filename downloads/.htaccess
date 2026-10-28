@@ -1,0 +1,7 @@
+# Downloads folder: serve index.php, never a raw directory listing,
+# and keep the folder out of search engines.
+DirectoryIndex index.php
+Options -Indexes
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>

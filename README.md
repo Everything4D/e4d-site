@@ -45,17 +45,11 @@ Commit + push to `main` redeploys automatically. Pull requests get a preview URL
 download link. It is not linked from anywhere on the site and is marked `noindex`; give the
 URL to people when they need it.
 
-To publish a file: drop it in `downloads/`, commit, push. Nothing else to edit. The list
-comes from `downloads/files.json`, which `scripts/build-downloads.mjs` regenerates from the
-folder contents (name, size, modified date; `index.html`, `files.json` and dotfiles are
-skipped). It runs automatically:
-
-- on every Cloudflare Pages deploy, as the build command (above), and
-- on every commit, via the pre-commit hook — enable it once per clone with
-  `git config core.hooksPath .githooks` (needs Node ≥ 18).
-
-Either one is enough; both together mean the committed `files.json` is never stale.
-You can also run it by hand: `node scripts/build-downloads.mjs`.
+To publish a file: upload it to `downloads/` (FTP is fine). To retire it: delete it. The
+page is `downloads/index.php`; it scans the folder on every request, so there is nothing
+to rebuild and nothing else to edit. Dotfiles, subfolders, `index.php` and `.htaccess` are
+skipped. `downloads/.htaccess` forces `index.php` as the index, disables raw directory
+listings, and adds the `noindex` header. Requires PHP on the host.
 
 ## Contact form
 
