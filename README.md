@@ -1,35 +1,43 @@
-# Everything 4D — Identity Site
+# Everything 4D — Company Site
 
-Static site. No dependencies, no backend. One optional build step (the downloads list, below).
+Static multi-page site. No dependencies, no backend. One optional build step (the downloads list, below).
 
-## Files
+## Pages
 
-- `index.html` — the home page (HTML + CSS + JS, logo inlined)
-- `privacy.html`, `terms.html` — Privacy Statement and Terms of Service. Linked from the
-  common footer on every page. Required by Microsoft (Entra app registration for the
-  mail-sending integration) and Intuit; their consent screens link to these URLs.
-- `oAuthConfirmation.html` — landing page shown after an OAuth consent flow completes.
-  Keep the filename exactly as registered with the provider (URLs are case-sensitive).
-- `downloads/` — unlisted file-distribution page (see below)
-- `assets/page.css` — shared stylesheet for every page except `index.html`
-- `_headers` — Cloudflare Pages headers (`noindex` on downloads and the OAuth page)
-- `scripts/build-downloads.mjs`, `.githooks/pre-commit` — downloads list generator
-- `assets/` — favicons and brand images
-  - `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` (transparent E4D icon at standard sizes)
-  - `e4d_icon.png` — full-res transparent icon
-  - original banners and icon retained for reference
+| File | Purpose |
+|---|---|
+| `index.html` | Home — hero, three service pillars, Why E4D, founder teaser, one testimonial, CTA |
+| `services.html` | What we do — consulting/development, inheriting a 4D system, training, stewardship, engagement process |
+| `about.html` | Who is E4D? — short answer, origin story, principles, timeline, full founder bios |
+| `clients.html` | Industries, testimonials, anonymized case notes |
+| `contact.html` | Contact form (Formspree), address, what to expect |
+| `privacy.html`, `terms.html` | Privacy Statement and Terms of Service. Linked from the common footer on every page. Required by Microsoft (Entra app registration for the mail-sending integration) and Intuit; their consent screens link to these URLs. |
+| `oAuthConfirmation.html` | Landing page shown after an OAuth consent flow completes. Keep the filename exactly as registered with the provider (URLs are case-sensitive). Unlisted, `noindex`. |
+| `downloads/` | Unlisted file-distribution page (see below) |
 
-## Deploy to Cloudflare Pages (recommended)
+## Shared pieces
 
-1. Push this folder to a GitHub repo (e.g. `e4d-site`).
-2. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git.
-3. Select the repo. Build settings: framework **None**, build command
-   `node scripts/build-downloads.mjs`, output directory **/**.
-4. Deploy. You get `e4d-site.pages.dev` immediately.
-5. Custom domain: Pages project → Custom domains → add `everything4d.com` and `www.everything4d.com`. If the domain's DNS is on Cloudflare this is one click; otherwise add the CNAME records it shows you.
+- `assets/site.css` — stylesheet for the main pages (home, services, about, clients, contact). Page-specific sections are grouped under commented headings.
+- `assets/page.css` — stylesheet for the secondary pages (privacy, terms, OAuth confirmation, downloads).
+- Header (nav + inline SVG logo) and footer are **duplicated in each HTML file**. When you change one, change all of them. The nav marks the current page with `aria-current="page"`.
+- Scroll-reveal and copyright-year JS is inlined at the bottom of each main page; the Formspree handler is only on `contact.html`.
+- `_headers` — Cloudflare Pages headers (`noindex` on downloads and the OAuth page).
+- `scripts/build-downloads.mjs`, `.githooks/pre-commit` — downloads list generator.
 
-Updates: commit + push to the repo and Pages redeploys automatically.
-Any of the three members can edit.
+## Assets
+
+- `assets/kirk.jpg`, `doug.jpg`, `angel.jpg` — founder headshots (square). Swap the file, no HTML edits.
+- `assets/partner-badge.png` — 4D Silver Partner badge.
+- Favicons: `e4d_icon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`.
+- Original banners and icon retained for reference.
+
+## Deploy — Cloudflare Pages
+
+1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → this repo.
+2. Build settings: framework **None**, build command `node scripts/build-downloads.mjs`, output directory **/**.
+3. Custom domain: Pages project → Custom domains → add `everything4d.com` and `www.everything4d.com`.
+
+Commit + push to `main` redeploys automatically. Pull requests get a preview URL.
 
 ## Downloads page
 
@@ -49,30 +57,11 @@ skipped). It runs automatically:
 Either one is enough; both together mean the committed `files.json` is never stale.
 You can also run it by hand: `node scripts/build-downloads.mjs`.
 
-## Contact form — one required step
+## Contact form
 
-The form posts to Formspree. Before launch:
+Posts to Formspree form `mzdqargo` (configured in `contact.html`). The delivery address is set in the Formspree dashboard, not in the HTML. Fields: name, email, company (optional), message.
 
-1. Create a free account at formspree.io (free tier: 50 submissions/month).
-2. Create a form pointed at the address you want submissions delivered to (e.g. admin@everything4d.com).
-3. Copy the form ID and replace `YOUR_FORM_ID` in `index.html`:
-   `action="https://formspree.io/f/YOUR_FORM_ID"`
+## Editorial notes
 
-Alternative with zero third parties: replace the form with a `mailto:` link, or use a small Cloudflare Worker + MailChannels (more setup, also free).
-
-## To-do before/after launch
-
-- [x] Formspree form ID (above)
-- [x] Founder headshots — placeholder images are at `assets/kirk.jpg`,
-      `assets/doug.jpg`, `assets/angel.jpg`. The real photos already exist in
-      the current site's WordPress media library:
-      - kirk: /wp-content/uploads/2025/06/kirk-brooks.jpeg
-      - angel: /wp-content/uploads/2025/06/angel.jpeg
-      - doug: /wp-content/uploads/2025/06/IMG_3343-square.jpg
-      Download each, rename to kirk.jpg / angel.jpg / doug.jpg, overwrite the
-      placeholders, commit, push. No HTML edits. Ideal: square, 800×800,
-      under ~150 KB (the 300px WordPress thumbnails are too small — get the
-      originals from the media library).
-- [x] Confirm the YouTube channel URL (`https://www.youtube.com/@everything4d` is assumed — verify the handle). ✅ 2026-08-07
-- [x] Confirm `admin@everything4d.com` is live.
-- [x] Review founder bios — drafted from the Clay email; edit freely. ✅ 2026-08-07
+- 4D Happy Hour ended in October 2026. It is referenced only in the past tense, on the About page.
+- Client names on the site are limited to the two published testimonials (Waltons Direct, i.LEVEL). Case notes are anonymized; the large 4D installation is deliberately unnamed.
