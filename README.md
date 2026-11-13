@@ -33,6 +33,17 @@ Everything the web server serves lives in `public_html/`. Paths below are relati
 - `assets/page.css` — stylesheet for the secondary pages (privacy, terms, OAuth confirmation, downloads).
 - Header (nav + inline SVG logo) and footer are **duplicated in each HTML file**. When you change one, change all of them. The nav marks the current page with `aria-current="page"`.
 - Scroll-reveal and copyright-year JS is inlined at the bottom of each main page; the Formspree handler is only on `contact.html`.
+- `assets/seasonal.js` + `assets/seasonal.css` — Christmas theme, linked from the `<head>` of every page (including `downloads/index.php`). See below.
+
+## Seasonal (Christmas) theme
+
+Switches itself on and off by date; no deploy is needed each year.
+
+- **When:** on from 00:00 on 1 December, off from 00:00 on 5 January (before Twelfth Night), using the visitor's local clock. The dates are the `start`/`end` values at the top of `assets/seasonal.js`; `end` is exclusive.
+- **What:** a greeting strip above the header (text is `greeting` in `seasonal.js`), a Santa hat on the third logo block, the home-page hero bars and footer squares wrapped as gifts, and light snowfall (skipped for visitors with "reduce motion" set).
+- **How:** `seasonal.js` runs in `<head>` and adds the class `xmas` to `<html>` before the page paints. Every rule in `seasonal.css` is scoped under `html.xmas`, so out of season the file has no effect.
+- **Preview** any time by adding `?season=christmas` to a page URL; `?season=off` forces it off. The override sticks for that browser tab (so you can click around the site); `?season=auto` goes back to the date rule.
+- **New pages** need the same two lines after their main stylesheet link.
 
 ## Assets
 
