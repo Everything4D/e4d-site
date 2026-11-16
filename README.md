@@ -88,11 +88,15 @@ GitHub main ──(My20i Git Version Control: Deploy)──▶ ~/e4d-site/   (a 
   - 16 Nov 2026: set to `sh /home/sites/35a/2/2585cdde4e/e4d-site/deploy.sh staging_html`
     (full path, in case the field runs from another directory). Deploy reported
     "Already up to date"; no `~/deploy.log` appeared and `~/staging_html` was untouched.
-  - Untested: whether the script only runs when a Deploy actually pulls new commits.
-    This README change was pushed to test exactly that. If `~/deploy.log` exists after
-    deploying it, the field works and only fires on new commits; change it to
-    `sh /home/sites/35a/2/2585cdde4e/e4d-site/deploy.sh` (no argument) to publish live.
-  - If it still does nothing, ask 20i support what the field expects and when it runs.
+  - 16 Nov 2026, same setting, Deploy that pulled a new commit (`ca199db..da2accf`):
+    still no `~/deploy.log`, `~/staging_html` still empty, and the Deploy output shows
+    only git's messages. So it is not a "nothing new to pull" effect.
+  - The script itself is fine: stored in git with Unix line endings and the executable bit.
+  - Next try: the path alone, without `sh`:
+    `/home/sites/35a/2/2585cdde4e/e4d-site/deploy.sh staging_html`.
+    The field only gets a chance to run when Deploy pulls a new commit.
+  - If that also does nothing, ask 20i support what the field expects and when it runs.
+    Once a form works, drop the `staging_html` argument to publish live.
 - **SSH** (Security → SSH Access, `everything4d.com@ssh.us.stackcp.com`) refused a
   registered ed25519 key; open question for 20i support. Once SSH works,
   `sh e4d-site/deploy.sh` is the one-line publish.
