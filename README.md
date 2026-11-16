@@ -79,12 +79,20 @@ GitHub main ──(My20i Git Version Control: Deploy)──▶ ~/e4d-site/   (a 
    - `sh deploy.sh` → `~/public_html` (live)
    - `sh deploy.sh staging_html` → `~/staging_html` (staging URL, for testing first)
 
-### Current status (Oct 2026)
+### Current status (Nov 2026)
 
-- The clone and manual **Deploy** work.
-- The **Deployment Script** field on the Basic Information tab did *not* run a plain shell
-  command in testing (an `echo > file` test produced nothing). It may expect a script path
-  such as `deploy.sh` / `sh deploy.sh staging_html`; not yet confirmed.
+- The clone and manual **Deploy** work. Deploy runs `git pull` and the History tab shows the
+  pulled commits. (The Basic Information tab's "Commit" line can lag behind; trust History.)
+- The **Deployment Script** field on the Basic Information tab has not yet been seen to run:
+  - Oct 2026: a plain `echo > file` test produced nothing.
+  - 16 Nov 2026: set to `sh /home/sites/35a/2/2585cdde4e/e4d-site/deploy.sh staging_html`
+    (full path, in case the field runs from another directory). Deploy reported
+    "Already up to date"; no `~/deploy.log` appeared and `~/staging_html` was untouched.
+  - Untested: whether the script only runs when a Deploy actually pulls new commits.
+    This README change was pushed to test exactly that. If `~/deploy.log` exists after
+    deploying it, the field works and only fires on new commits; change it to
+    `sh /home/sites/35a/2/2585cdde4e/e4d-site/deploy.sh` (no argument) to publish live.
+  - If it still does nothing, ask 20i support what the field expects and when it runs.
 - **SSH** (Security → SSH Access, `everything4d.com@ssh.us.stackcp.com`) refused a
   registered ed25519 key; open question for 20i support. Once SSH works,
   `sh e4d-site/deploy.sh` is the one-line publish.
@@ -98,6 +106,9 @@ GitHub main ──(My20i Git Version Control: Deploy)──▶ ~/e4d-site/   (a 
 3. Publish `e4d-site/public_html` → `public_html` (deploy script, SSH `sh e4d-site/deploy.sh`,
    or File Manager copy — see status above).
 4. Hard-reload the page in a browser. If it still looks stale, My20i → CDN → clear cache.
+
+Deploy alone does **not** change the live site: it only updates `~/e4d-site`. If the live
+pages still look old after step 2, step 3 has not happened.
 
 ## Downloads page
 
